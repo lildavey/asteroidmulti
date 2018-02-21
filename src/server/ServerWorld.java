@@ -21,7 +21,7 @@ public class ServerWorld extends World
         timer = new Timer(750000);
         this.server = server;
         //addObject(new spaceshipActor(100,100,45,0),100,100);
-        addObject(new Asteroid( 100,100,90, 1),100,100);
+        //addObject(new Asteroid( 100,100,90, 1),100,100);
     }
 
     @Override
@@ -42,9 +42,6 @@ public class ServerWorld extends World
                actor.tick();
 
             }
-
-            //System.out.println("tick: " + this.getObjects().size());
-            //System.out.println("tick: " + server);
             timer.reset();
             if(null != server)
             {
@@ -57,7 +54,7 @@ public class ServerWorld extends World
     {
         String str = "";
 
-        List<spaceshipActor> actors = getObjects(spaceshipActor.class);
+        List<SpaceActor> actors = getObjects(SpaceActor.class);
         for(Actor actor : actors)
         {
             str += actor.toString() + ":";

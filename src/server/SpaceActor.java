@@ -5,7 +5,9 @@ import mayflower.Actor;
 public class SpaceActor extends Actor
 {
     private double velocity, maxV;
+
     private double acceleration, deceleration =0;
+
 
     public SpaceActor(String img, int x, int y, int r)
     {
@@ -15,7 +17,7 @@ public class SpaceActor extends Actor
         maxV = 25;
     }
 
-    public SpaceActor(String img, int x, int y, int r,int velocity)
+    public SpaceActor(String img, int x, int y, int r,double velocity)
     {
         setImage(img);
         setLocation(x, y);
@@ -36,7 +38,7 @@ public class SpaceActor extends Actor
         setRotation(r);
     }
 
-    public void setVelocity(int v)
+    public void setVelocity(double v)
     {
         velocity = Math.abs(v);
     }
@@ -66,6 +68,10 @@ public class SpaceActor extends Actor
         this.deceleration = deceleration;
     }
 
+
+
+
+
     public void warp()
     {
         int x = this.getX();
@@ -78,7 +84,7 @@ public class SpaceActor extends Actor
         }
         if( x > 1024 )
         {
-            this.setLocation( (this.getImage().getHeight()) + 1, y );
+            this.setLocation( 0, y );
 
         }
         if( y < -(this.getImage().getHeight()) )
@@ -88,7 +94,7 @@ public class SpaceActor extends Actor
         }
         if( y > 768 )
         {
-            this.setLocation( x, (this.getImage().getHeight()) + 1 );
+            this.setLocation( x, 0);
 
         }
     }
@@ -109,7 +115,5 @@ public class SpaceActor extends Actor
 
     public void tick(){
         warp();
-        //removeVelocity();
-
     }
 }

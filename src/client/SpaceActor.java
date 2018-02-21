@@ -4,14 +4,14 @@ import mayflower.Actor;
 
 public class SpaceActor extends Actor
 {
-    private int velocity;
+    private double velocity;
     public SpaceActor(String img, int x, int y, int r)
     {
         setImage(img);
         setLocation(x, y);
         setRotation(r);
     }
-    public SpaceActor(String img, int x, int y, int r,int velocity)
+    public SpaceActor(String img, int x, int y, int r,double velocity)
     {
         setImage(img);
         setLocation(x, y);
@@ -32,6 +32,10 @@ public class SpaceActor extends Actor
         setRotation(r);
     }
 
+    public double getVelocity() {
+        return velocity;
+    }
+
     public String toString()
     {
         return getImage().toString() + "_" + getX() + "_" + getY() + "_" + getRotation();
@@ -40,8 +44,7 @@ public class SpaceActor extends Actor
     @Override
     public void act() {
         //any obejcts that extend this must call super.act() in their act method()
-     //   if()
-        
+
 
     }
 
@@ -53,22 +56,22 @@ public class SpaceActor extends Actor
         if( x < -(this.getImage().getHeight()) )
         {
             this.setLocation(1024, y );
-            System.out.println("wprked1");
+
         }
         if( x > 1024 )
         {
-            this.setLocation( (this.getImage().getHeight()) + 1, y );
-            System.out.println("wprked2");
+            this.setLocation( 0, y );
+
         }
         if( y < -(this.getImage().getHeight()) )
         {
             this.setLocation( x, 768 );
-            System.out.println("wprke3");
+
         }
         if( y > 768 )
         {
-            this.setLocation( x, (this.getImage().getHeight()) + 1 );
-            System.out.println("wprke4");
+            this.setLocation( x, 0);
+
         }
     }
 

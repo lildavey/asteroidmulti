@@ -1,20 +1,24 @@
 package server;
 
+import client.Asteroid;
+import client.GunnerActor;
 import mayflower.*;
 import mayflower.net.Server;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServerGame extends Mayflower
+public class ServerGame extends Mayflower implements ActorID
 {
-    private Map<Integer, SpaceActor> actors;
+
+
     private ServerWorld world;
 
     public ServerGame(Server server)
     {
         super("Server", 1024, 768);
-        actors = new HashMap<Integer, SpaceActor>();
+
+
 
         world = new ServerWorld(server);
         this.setWorld(world);
@@ -22,42 +26,28 @@ public class ServerGame extends Mayflower
 
     public void process(int i, String s)
     {
+        //System.out.println("actors.get(2) = " + i);
+
         SpaceActor actor = actors.get(i);
-        if(actor != null)
+
+        if(actor != null )
         {
-
-            /*switch(s)
-            {
-                case "up":
-                    actor.setAcceleration(1);
-                    break;
-                case "down":
-                    break;
-                case "left":
-                    actor.turn(-5);
-                    break;
-                case "right":
-                    actor.turn(5);
-                    break;
-
-            }*/
-
-            if(s.equals("upPressed")) {
-                actor.setAcceleration(3);
-                actor.setDeceleration(0);
+            if(actor instanceof server.spaceshipActor) {
+                //System.out.println("actor instance of ship");
+                if (s.equals("upPressed")) {
+                    actor.setAcceleration(2);
+                    actor.setDeceleration(0);
+                } else if (!s.equals("upPressed")) {
+                    actor.setAcceleration(0);
+                    actor.setDeceleration(.05);
+                }
+                if (s.equals("leftPressed")) actor.turn(-5);
+                if (s.equals("rightPressed")) actor.turn(5);
             }
-            else if(!s.equals("upPressed")){
-                actor.setAcceleration(0);
-                actor.setDeceleration(.05);
-            }
-            //if(s.equals("downPressed"))
-            if(s.equals("leftPressed")) actor.turn(-5);
-            if(s.equals("rightPressed")) actor.turn(5);
-
-            System.out.println(s);
-
 
         }
+
+
     }
 
     public void join(int i)
@@ -65,10 +55,18 @@ public class ServerGame extends Mayflower
 
         int x = (int)(Math.random() * 700) + 50;
         int y = (int)(Math.random() * 500) + 50;
-        SpaceActor actor = new spaceshipActor(x,y,0,0);
-        world.addObject(actor, x, y);
+        SpaceActor spaceActor = new spaceshipActor(x,y,0,0, i);
+        world.addObject(spaceActor, x, y);
+        actors.put(i, spaceActor);
 
-        actors.put(i, actor);
+        /*SpaceActor gunnerActor = new server.GunnerActor(x,y,0,0,(spaceshipActor) actors.get(i));
+        world.addObject(gunnerActor, x, y);
+        actors.put(i+1,gunnerActor);*/
+
+        /*SpaceActor asteroidTest = new server.Asteroid(x,y,0,0);
+        world.addObject(asteroidTest,x,y);*/
+        //actors.put(i, asteroidTest);
+
     }
 
     public void leave(int i)

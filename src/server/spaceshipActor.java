@@ -2,17 +2,26 @@ package server;
 
 public class spaceshipActor extends SpaceActor {
 
-    private int x,y,r,maxV;
+    private int x,y,r,maxV, ID;
     private double velocity;
     private double acceleration, deceleration =0;
 
-    public spaceshipActor(int xCoord, int yCoord, int rotation,double velocity)
+    public spaceshipActor(int xCoord, int yCoord, int rotation,double velocity,int ID)
     {
         super("img/spaceship.png", xCoord, yCoord, rotation);
         this.x = xCoord; this.y = yCoord; this.r = rotation;
         this.velocity = velocity;
         maxV = 10;
+        this.ID = ID;
 
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     /**

@@ -2,13 +2,15 @@ package client;
 
 import mayflower.Actor;
 import mayflower.net.Client;
+import server.ActorID;
+import server.GunnerActor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameClient extends Client implements GameMode
+public class GameClient extends Client implements GameMode, ActorID
 {
     private GameWorld world;
     private String tempProcess = "";
@@ -38,21 +40,7 @@ public class GameClient extends Client implements GameMode
 
         List<Actor> actors = new LinkedList<Actor>();
         ArrayList<String> parts =new ArrayList<>(Arrays.asList(s.split(":")));
-        //String[] parts = s.split(":");
 
-/*        ArrayList<String> tempParts = new ArrayList<>();
-        if(!tempProcess.isEmpty())
-        tempParts =new ArrayList<>(Arrays.asList(tempProcess.split(":")));
-        else tempParts.add("");
-
-        for(int q = 0; q<tempParts.size();q++)
-        for(int i =0; i< parts.size();i++)
-        {
-            System.out.println(parts.get(i).equals(tempParts.get(q)));
-            //System.out.println(tempParts.get(q));
-            if(parts.get(i).equals(tempParts.get(q))) parts.remove(i);
-
-        }*/
         for (String part: parts) {
             if (!"".equals(part) ) {
                 ArrayList<String> parts2 = new ArrayList<>(Arrays.asList(part.split(",")));
@@ -62,11 +50,23 @@ public class GameClient extends Client implements GameMode
                 int y = Integer.parseInt(parts2.get(2));
                 int r = Integer.parseInt(parts2.get(3));
                 double v = Double.parseDouble(parts2.get(4));
-                System.out.println("v = " + v);
+                int ID=0;
+                if(parts2.size()>5)
+                    ID = Integer.parseInt(parts2.get(5));
 
-                actors.add(new spaceshipActor(x, y, r, (int)v));
-                //System.out.println("added Actor");
+                //System.out.println(parts2.get(0));
 
+                switch (parts2.get(0)) {
+                    case "spaceship":
+                        actors.add(new spaceshipActor(x, y, r, (int) v));
+                        break;
+                    case "asteroid":
+                        actors.add(new Asteroid(x,y,r,(int) v));
+                        break;
+                    case "gunner":
+                        actors.add(new GunnerActor(x,y,r, v,(server.spaceshipActor)ActorID.actors.get(ID)));
+                        break;
+                }
             }
 
         }

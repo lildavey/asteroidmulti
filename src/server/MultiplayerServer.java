@@ -43,11 +43,13 @@ public class MultiplayerServer extends Server
     {
         System.out.println("Joined: " + i);
         lobby.join(i);
+
     }
 
     @Override
     public void onExit(int i) {
         lobby.leave(i);
+
         System.out.println("Left: " + i);
 
     }

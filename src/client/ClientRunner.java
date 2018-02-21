@@ -28,6 +28,10 @@ public class ClientRunner extends Mayflower
         keys.put(Keyboard.KEY_DOWN, "down");
         keys.put(Keyboard.KEY_RIGHT, "right");
         keys.put(Keyboard.KEY_SPACE, "shoot");
+
+        keys.put(Keyboard.KEY_A, "gunLeft");
+        keys.put(Keyboard.KEY_D, "gunRight");
+
         im.setKeyMap(keys);
 
         GameWorld world = new GameWorld(im);
