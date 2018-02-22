@@ -16,6 +16,10 @@ public class SpaceActor extends Actor
         setRotation(r);
         maxV = 25;
     }
+    public SpaceActor()
+    {
+
+    }
 
     public SpaceActor(String img, int x, int y, int r,double velocity)
     {

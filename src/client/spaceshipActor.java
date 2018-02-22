@@ -1,7 +1,5 @@
 package client;
 
-import server.SpaceActor;
-
 public class spaceshipActor extends SpaceActor {
 
     private int x,y,r,maxV;

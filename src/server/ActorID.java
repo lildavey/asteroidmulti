@@ -7,5 +7,7 @@ import java.util.Map;
 
 public interface ActorID {
     Map<Integer, SpaceActor> actors = new HashMap<Integer, SpaceActor>();
-    String[] positions = {"pilot", "gunner"};
+    Map<Integer, Ship> ships = new HashMap<Integer, Ship>();
+    String currPosition = "";
+
 }

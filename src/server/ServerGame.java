@@ -32,8 +32,8 @@ public class ServerGame extends Mayflower implements ActorID
 
         if(actor != null )
         {
-            if(actor instanceof server.spaceshipActor) {
-                //System.out.println("actor instance of ship");
+            /*if(actor instanceof spaceshipActor) {*/
+
                 if (s.equals("upPressed")) {
                     actor.setAcceleration(2);
                     actor.setDeceleration(0);
@@ -41,9 +41,11 @@ public class ServerGame extends Mayflower implements ActorID
                     actor.setAcceleration(0);
                     actor.setDeceleration(.05);
                 }
+
                 if (s.equals("leftPressed")) actor.turn(-5);
                 if (s.equals("rightPressed")) actor.turn(5);
-            }
+           // }
+
 
         }
 
@@ -53,15 +55,27 @@ public class ServerGame extends Mayflower implements ActorID
     public void join(int i)
     {
 
-        int x = (int)(Math.random() * 700) + 50;
-        int y = (int)(Math.random() * 500) + 50;
-        SpaceActor spaceActor = new spaceshipActor(x,y,0,0, i);
-        world.addObject(spaceActor, x, y);
-        actors.put(i, spaceActor);
 
-        /*SpaceActor gunnerActor = new server.GunnerActor(x,y,0,0,(spaceshipActor) actors.get(i));
-        world.addObject(gunnerActor, x, y);
-        actors.put(i+1,gunnerActor);*/
+
+        if(i%3 == 1) {
+            int x = (int) (Math.random() * 700) + 50;
+            int y = (int) (Math.random() * 500) + 50;
+            Ship ship = new server.Ship();
+            ships.put(i,ship);
+
+            SpaceActor pilot = new spaceshipActor(x, y, 0, 0, i);
+            world.addObject(pilot, x, y);
+
+            actors.put(i, pilot);
+            ships.get(i).setPilot(pilot);
+        }
+        if(i%3 == 2) {
+            SpaceActor gunnerActor = new server.GunnerActor(actors.get(i-1).getX(), actors.get(i-1).getY(), 0, 0, (spaceshipActor) actors.get(i-1));
+            world.addObject(gunnerActor, actors.get(i-1).getX(), actors.get(i-1).getY());
+
+            actors.put(i, gunnerActor);
+            ships.get(i-1).setGunner(gunnerActor);
+        }
 
         /*SpaceActor asteroidTest = new server.Asteroid(x,y,0,0);
         world.addObject(asteroidTest,x,y);*/
