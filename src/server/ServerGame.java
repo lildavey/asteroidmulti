@@ -28,6 +28,9 @@ public class ServerGame extends Mayflower implements ActorID
     {
         //System.out.println("actors.get(2) = " + i);
 
+
+
+
         SpaceActor actor = actors.get(i);
 
         if(actor != null )
@@ -44,9 +47,10 @@ public class ServerGame extends Mayflower implements ActorID
 
                 if (s.equals("leftPressed")) actor.turn(-5);
                 if (s.equals("rightPressed")) actor.turn(5);
-           // }
 
-
+                if(actor instanceof server.GunnerActor)
+                    if(s.equals("shootPressed"))
+                        actor.fireLaser();
         }
 
 

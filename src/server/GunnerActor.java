@@ -8,6 +8,7 @@ public class GunnerActor extends SpaceActor implements ActorID {
 
     }
 
+
     @Override
     public void tick() {
         super.tick();

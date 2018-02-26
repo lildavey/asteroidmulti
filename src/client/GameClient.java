@@ -35,7 +35,7 @@ public class GameClient extends Client implements GameMode, ActorID
     @Override
     public void process(String s)
     {
-        //if(s.equals(tempProcess)) return;
+        if(s.equals(tempProcess)) return;
         //System.out.println("Message From Server: " + s);
 
         List<Actor> actors = new LinkedList<Actor>();
@@ -43,18 +43,19 @@ public class GameClient extends Client implements GameMode, ActorID
 
         for (String part: parts) {
             if (!"".equals(part) ) {
+
                 ArrayList<String> parts2 = new ArrayList<>(Arrays.asList(part.split(",")));
-                //if(parts2[0].equals("spaceship")) {
                 String img = "img/" + parts2.get(0) + ".png";
                 int x = Integer.parseInt(parts2.get(1));
                 int y = Integer.parseInt(parts2.get(2));
                 int r = Integer.parseInt(parts2.get(3));
                 double v = Double.parseDouble(parts2.get(4));
                 int ID=0;
+
                 if(parts2.size()>5)
                     ID = Integer.parseInt(parts2.get(5));
 
-                //System.out.println(parts2.get(0));
+
 
                 switch (parts2.get(0)) {
                     case "spaceship":
@@ -66,6 +67,9 @@ public class GameClient extends Client implements GameMode, ActorID
                     case "gunner":
                         actors.add(new GunnerActor(x,y,r, v,(server.spaceshipActor)ActorID.actors.get(ID)));
                         break;
+                    case "laser":
+                        actors.add(new Laser(x,y,r));
+
                 }
             }
 
