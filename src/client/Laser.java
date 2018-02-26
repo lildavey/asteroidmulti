@@ -10,7 +10,7 @@ public class Laser extends Actor {
     }
     public void tick()
     {
-        move(2);
+        move(5);
     }
 
     @Override

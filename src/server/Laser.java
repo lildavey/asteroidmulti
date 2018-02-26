@@ -9,7 +9,7 @@ public class Laser extends SpaceActor {
     }
     public void tick()
     {
-        move(2);
+        move(5);
     }
 
     public String toString() {

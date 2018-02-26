@@ -2,11 +2,18 @@ package server;
 
 import mayflower.Actor;
 
+import mayflower.Timer;
+
 public class SpaceActor extends Actor
 {
     private double velocity, maxV;
 
     private double acceleration, deceleration =0;
+
+    /**
+     * Interval between shots
+     */
+    private Timer timer = new Timer((int)(.25*Math.pow(10,(9))));
 
 
     public SpaceActor(String img, int x, int y, int r)
@@ -48,8 +55,12 @@ public class SpaceActor extends Actor
 
     public void fireLaser()
     {
-        System.out.println("Fired");
-        getWorld().addObject(new Laser(getX(),getY(),getRotation()),getX(),getY());
+
+
+        if(timer.isDone()) {
+            getWorld().addObject(new Laser(getX(), getY(), getRotation()), getX(), getY());
+            timer.reset();
+        }
     }
 
 
